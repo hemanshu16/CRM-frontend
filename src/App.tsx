@@ -1,13 +1,29 @@
 import { useContext } from 'react';
 import { SnackbarContext } from './hooks/SnackbarProvider';
 import Dashboard from './pages/dashboard'
-import { Alert, AppBar, Box, Divider, IconButton, Link, Snackbar, Toolbar, Typography } from '@mui/material';
+import { Alert, AppBar, Backdrop, Box, CircularProgress, Divider, IconButton, Link, Snackbar, Toolbar, Typography } from '@mui/material';
+import { BackdropContext } from './hooks/BackdropProvider';
 
 function App() {
   const { snackbar, setSnackbar, snackbarSeverity, snackbarMessage } =
     useContext(SnackbarContext);
+
+  const { backdrop, setBackdrop, backdropMessage } =
+    useContext(BackdropContext);
   return (
     <>
+      <Backdrop
+        sx={{
+          color: "#fff",
+          zIndex: (theme: { zIndex: { drawer: number } }) =>
+            theme.zIndex.drawer + 1_000_0,
+        }}
+        open={backdrop}
+        onClick={() => setBackdrop(false)}
+      >
+        <CircularProgress color="inherit" />&nbsp; &nbsp;
+        <h3>{backdropMessage}</h3>
+      </Backdrop>
       <Snackbar
         open={snackbar}
         autoHideDuration={5000}
@@ -25,7 +41,7 @@ function App() {
       </Snackbar>
       <Box>
         <Box>
-          <AppBar position="static" sx={{backgroundColor:"#00a3cc"}}>
+          <AppBar position="static" sx={{ backgroundColor: "#00a3cc" }}>
             <Toolbar>
               <IconButton
                 size="large"
@@ -45,14 +61,14 @@ function App() {
 
           <Dashboard />
         </Box>
-        
-          <Box sx={{textAlign:"center",backgroundColor:"InfoBackground",mt:1.3}}>
-            <Divider/>
-        <Box sx={{p:1,backgroundColor:"#00a3cc",color:"whitesmoke"}}>
-          <Typography variant='body2' sx={{color:"whitesmoke"}}>© 2024 Barabari Collective Developers.</Typography>
-          <Typography variant='body2'>Built By <Link sx={{color:'black'}} href="https://github.com/hemanshu16">Hemanshu Faldu.</Link></Typography>
-          <Typography variant='body2'>Want us to build something for you? <Link sx={{color:'black'}} href="https://www.barabariproject.org/">Contact us</Link></Typography>
-        </Box>
+
+        <Box sx={{ textAlign: "center", backgroundColor: "InfoBackground", mt: 1.3 }}>
+          <Divider />
+          <Box sx={{ p: 1, backgroundColor: "#00a3cc", color: "whitesmoke" }}>
+            <Typography variant='body2' sx={{ color: "whitesmoke" }}>© 2024 Barabari Collective Developers.</Typography>
+            <Typography variant='body2'>Built By <Link sx={{ color: 'black' }} href="https://github.com/hemanshu16">Hemanshu Faldu.</Link></Typography>
+            <Typography variant='body2'>Want us to build something for you? <Link sx={{ color: 'black' }} href="https://www.barabariproject.org/">Contact us</Link></Typography>
+          </Box>
         </Box>
       </Box>
     </>);

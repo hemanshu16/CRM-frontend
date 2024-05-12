@@ -1,10 +1,12 @@
-import { APIResponseAllContent } from "../src/models/APIResponseAllContent";
-import { Content } from "../src/models/content";
+import { APIResponseAllContent } from "../models/APIResponseAllContent";
+import { Content } from "../models/content";
 
-const baseURL: string = import.meta.env.BASE_URL;
+
+const baseURL: string = "https://crm-backend-3sa1.onrender.com";
 
 
 export const fetchAllContent = async (): Promise<any> => {
+//   alert(baseURL)
     const requestOptions: RequestInit = {
         method: "GET"
     };

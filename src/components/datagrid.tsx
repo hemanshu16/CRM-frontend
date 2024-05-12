@@ -8,12 +8,13 @@ import Paper from '@mui/material/Paper';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
-import { deleteContent, fetchAllContent, newContent, updateContent } from "../../actions/content";
+import { deleteContent, fetchAllContent, newContent, updateContent } from "../actions/content";
 import { Content } from '../models/content';
 import { Dialog, DialogTitle, Button, DialogActions, DialogContent, TextField, Box, FormControl, OutlinedInput, InputLabel, Typography } from '@mui/material';
 import { APIResponseDeleteContent } from '../models/APIResponseDeleteContent';
 import { SnackbarContext } from '../hooks/SnackbarProvider';
 import { ContentId } from '../models/contentId';
+import { BackdropContext } from '../hooks/BackdropProvider';
 
 
 
@@ -32,6 +33,9 @@ export default function DataTable() {
         sectionNo: 1,
         elementNo: 1
     });
+
+    const { setBackdrop, setBackdropMessage } = useContext(BackdropContext);
+
 
     const [dialogTitle, setDialogTitle] = useState<string>("");
 
@@ -55,15 +59,19 @@ export default function DataTable() {
 
 
     const fetchContent = async (): Promise<void> => {
+        setBackdrop(true);
+        setBackdropMessage("Fetching Content");
         let apiResponse: Content[] = await fetchAllContent();
         if (apiResponse != null) {
             setData(apiResponse);
 
         }
+        setBackdrop(false);
     }
 
     const handleDelete = async (): Promise<void> => {
-
+        setBackdrop(true);
+        setBackdropMessage("Deleting Content");
         const response: APIResponseDeleteContent = await deleteContent(contentId);
         setOpen("");
         setSnackbar(true);
@@ -76,6 +84,7 @@ export default function DataTable() {
             setSnackbarMessage("SomeThing Went Wrong");
             setSnackbarSeverity('error');
         }
+        setBackdrop(false);
 
     }
 
@@ -90,8 +99,11 @@ export default function DataTable() {
             contentId: `page${inputContentId.pageNo}-sec${inputContentId.sectionNo}-ele${inputContentId.elementNo}`,
             content: inputContent
         };
+        setBackdrop(true);
         try {
+
             if (open == 'new') {
+                setBackdropMessage("Adding New Content");
                 await newContent(content);
                 setData((data) => {
                     return [...data, content]
@@ -103,7 +115,8 @@ export default function DataTable() {
 
             }
             else {
-                await updateContent(content,contentId);
+                setBackdropMessage("Updating Content");
+                await updateContent(content, contentId);
                 setData((data) => {
                     return data.map(_content => {
                         if (_content.contentId == contentId) {
@@ -124,6 +137,7 @@ export default function DataTable() {
             setSnackbarMessage(error.toString().substring(7));
             setSnackbarSeverity("error");
         }
+        setBackdrop(false);
         handleClose();
     }
 
@@ -249,19 +263,19 @@ export default function DataTable() {
             </DialogActions>
         </Dialog>
         <Box sx={{ width: "100%", mt: 2 }}>
-            <Box width="80%"  sx={{ml:"10%",display: "flex", justifyContent: "space-between",alignItems:"center" }} >
+            <Box width="80%" sx={{ ml: "10%", display: "flex", justifyContent: "space-between", alignItems: "center" }} >
                 <Typography>WebSite Name</Typography>
-                <Button sx={{ mb: 1,color:"#00a3cc",borderColor:"#00a3cc" }} onClick={() => { setOpen("new"); setDialogTitle("New Content"); }} variant='outlined'>+ Add</Button>
+                <Button sx={{ mb: 1, color: "#00a3cc", borderColor: "#00a3cc" }} onClick={() => { setOpen("new"); setDialogTitle("New Content"); }} variant='outlined'>+ Add</Button>
             </Box>
 
 
-            <TableContainer sx={{ width: "80%", marginLeft: "10%",height:"68.5vh" }} component={Paper}>
+            <TableContainer sx={{ width: "80%", marginLeft: "10%", height: "68.5vh" }} component={Paper}>
                 <Table aria-label="simple table" stickyHeader>
                     <TableHead >
                         <TableRow>
                             <TableCell sx={{ minWidth: 40 }}>
-             {"Page Id"}
-            </TableCell>
+                                {"Page Id"}
+                            </TableCell>
                             <TableCell sx={{ minWidth: 40 }}>Section Id</TableCell>
                             <TableCell sx={{ minWidth: 40 }}>Element Id</TableCell>
                             <TableCell sx={{ minWidth: 200 }} align="left">Content</TableCell>
@@ -285,8 +299,8 @@ export default function DataTable() {
                                     {row.contentId.split("-")[2].substring(3)}
                                 </TableCell>
                                 <TableCell align="justify">{row.content}</TableCell>
-                                <TableCell align="right">{<EditIcon sx={{cursor:'pointer'}} onClick={() => initiateUpdate(row)} />}</TableCell>
-                                <TableCell align="right">{<DeleteIcon   sx={{cursor:'pointer'}} onClick={() => handleClickOpen(row.contentId)} />}</TableCell>
+                                <TableCell align="right">{<EditIcon sx={{ cursor: 'pointer' }} onClick={() => initiateUpdate(row)} />}</TableCell>
+                                <TableCell align="right">{<DeleteIcon sx={{ cursor: 'pointer' }} onClick={() => handleClickOpen(row.contentId)} />}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
