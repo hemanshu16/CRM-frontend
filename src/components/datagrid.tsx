@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { deleteContent, fetchAllContent, newContent, updateContent } from "../../actions/content";
 import { Content } from '../models/content';
-import { Dialog, DialogTitle, Button, DialogActions, DialogContent, TextField, Box, FormControl, OutlinedInput, InputLabel, Typography, TableSortLabel } from '@mui/material';
+import { Dialog, DialogTitle, Button, DialogActions, DialogContent, TextField, Box, FormControl, OutlinedInput, InputLabel, Typography } from '@mui/material';
 import { APIResponseDeleteContent } from '../models/APIResponseDeleteContent';
 import { SnackbarContext } from '../hooks/SnackbarProvider';
 import { ContentId } from '../models/contentId';

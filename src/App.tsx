@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { SnackbarContext } from './hooks/SnackbarProvider';
 import Dashboard from './pages/dashboard'
-import { Alert, AppBar, BottomNavigation, BottomNavigationAction, Box, Button, Divider, IconButton, Link, Snackbar, Toolbar, Typography } from '@mui/material';
+import { Alert, AppBar, Box, Divider, IconButton, Link, Snackbar, Toolbar, Typography } from '@mui/material';
 
 function App() {
   const { snackbar, setSnackbar, snackbarSeverity, snackbarMessage } =
