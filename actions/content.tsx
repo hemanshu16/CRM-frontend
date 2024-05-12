@@ -5,7 +5,6 @@ const baseURL: string = import.meta.env.BASE_URL;
 
 
 export const fetchAllContent = async (): Promise<any> => {
-    alert(baseURL)
     const requestOptions: RequestInit = {
         method: "GET"
     };
