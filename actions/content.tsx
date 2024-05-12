@@ -1,9 +1,11 @@
 import { APIResponseAllContent } from "../src/models/APIResponseAllContent";
 import { Content } from "../src/models/content";
 
-const baseURL: string = "http://localhost:3000";
+const baseURL: string = import.meta.env.BASE_URL;
+
 
 export const fetchAllContent = async (): Promise<any> => {
+    alert(baseURL)
     const requestOptions: RequestInit = {
         method: "GET"
     };
@@ -29,7 +31,7 @@ export const newContent = async (content: Content): Promise<any> => {
     return await _request(baseURL + "/api/content", requestOptions);
 }
 
-export const updateContent = async (content: Content): Promise<any> => {
+export const updateContent = async (content: Content,contentId:string): Promise<any> => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -41,7 +43,7 @@ export const updateContent = async (content: Content): Promise<any> => {
         body: raw,
     };
 
-    return await _request(baseURL + "/api/content", requestOptions)
+    return await _request(baseURL + "/api/content/" + contentId, requestOptions)
 
 }
 

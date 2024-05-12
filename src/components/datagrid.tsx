@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { deleteContent, fetchAllContent, newContent, updateContent } from "../../actions/content";
 import { Content } from '../models/content';
-import { Dialog, DialogTitle, Button, DialogActions, DialogContent, TextField, Box, FormControl, OutlinedInput, InputLabel } from '@mui/material';
+import { Dialog, DialogTitle, Button, DialogActions, DialogContent, TextField, Box, FormControl, OutlinedInput, InputLabel, Typography, TableSortLabel } from '@mui/material';
 import { APIResponseDeleteContent } from '../models/APIResponseDeleteContent';
 import { SnackbarContext } from '../hooks/SnackbarProvider';
 import { ContentId } from '../models/contentId';
@@ -48,6 +48,7 @@ export default function DataTable() {
             sectionNo: 1,
             elementNo: 1
         });
+        setContentId("");
     };
 
     const { setSnackbar, setSnackbarMessage, setSnackbarSeverity } = useContext(SnackbarContext);
@@ -102,10 +103,10 @@ export default function DataTable() {
 
             }
             else {
-                await updateContent(content);
+                await updateContent(content,contentId);
                 setData((data) => {
                     return data.map(_content => {
-                        if (_content.contentId == content.contentId) {
+                        if (_content.contentId == contentId) {
                             return content;
                         }
                         return _content;
@@ -141,6 +142,7 @@ export default function DataTable() {
 
     const initiateUpdate = (content: Content): void => {
         setInputContent(content.content);
+        setContentId(content.contentId);
         const subId: string[] = content.contentId.split("-");
         setInputContentId({
             pageNo: Number(subId[0].substring(4)),
@@ -246,17 +248,22 @@ export default function DataTable() {
                 </Button>
             </DialogActions>
         </Dialog>
-        <Box sx={{ width: "100%", mt: 5 }}>
-            <Box width="90%" sx={{ display: "flex", justifyContent: "right" }} >
-                <Button sx={{ mb: 1 }} onClick={() => { setOpen("new"); setDialogTitle("New Content"); }} variant='outlined'>+ Add</Button>
+        <Box sx={{ width: "100%", mt: 2 }}>
+            <Box width="80%"  sx={{ml:"10%",display: "flex", justifyContent: "space-between",alignItems:"center" }} >
+                <Typography>WebSite Name</Typography>
+                <Button sx={{ mb: 1,color:"#00a3cc",borderColor:"#00a3cc" }} onClick={() => { setOpen("new"); setDialogTitle("New Content"); }} variant='outlined'>+ Add</Button>
             </Box>
 
 
-            <TableContainer sx={{ width: "80%", marginLeft: "10%" }} component={Paper}>
-                <Table aria-label="simple table">
+            <TableContainer sx={{ width: "80%", marginLeft: "10%",height:"68.5vh" }} component={Paper}>
+                <Table aria-label="simple table" stickyHeader>
                     <TableHead >
                         <TableRow>
-                            <TableCell sx={{ minWidth: 200 }}>Id</TableCell>
+                            <TableCell sx={{ minWidth: 40 }}>
+             {"Page Id"}
+            </TableCell>
+                            <TableCell sx={{ minWidth: 40 }}>Section Id</TableCell>
+                            <TableCell sx={{ minWidth: 40 }}>Element Id</TableCell>
                             <TableCell sx={{ minWidth: 200 }} align="left">Content</TableCell>
                             <TableCell sx={{ minWidth: 100 }} align="right">Update</TableCell>
                             <TableCell sx={{ minWidth: 100 }} align="right">Delete</TableCell>
@@ -269,7 +276,13 @@ export default function DataTable() {
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.contentId}
+                                    {row.contentId.split("-")[0].substring(4)}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row.contentId.split("-")[1].substring(3)}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row.contentId.split("-")[2].substring(3)}
                                 </TableCell>
                                 <TableCell align="justify">{row.content}</TableCell>
                                 <TableCell align="right">{<EditIcon sx={{cursor:'pointer'}} onClick={() => initiateUpdate(row)} />}</TableCell>
