@@ -262,22 +262,22 @@ export default function DataTable() {
                 </Button>
             </DialogActions>
         </Dialog>
-        <Box sx={{ width: "100%", mt: 2 }}>
-            <Box width="80%" sx={{ ml: "10%", display: "flex", justifyContent: "space-between", alignItems: "center" }} >
+        <Box sx={{ width: "100%", mt:"80px", position:"sticky",flexGrow:1 }}>
+            <Box width="90%" sx={{ ml: "5%", display: "flex", justifyContent: "space-between", alignItems: "center" }} >
                 <Typography></Typography>
-                <Button sx={{ mb: 1, color: "#00a3cc", borderColor: "#00a3cc" }} onClick={() => { setOpen("new"); setDialogTitle("New Content"); }} variant='outlined'>+ Add</Button>
+                <Button sx={{ mb: 1, color: "#151e28", borderColor: "#151e28" }} onClick={() => { setOpen("new"); setDialogTitle("New Content"); }} variant='outlined'>+ Add</Button>
             </Box>
 
 
-            <TableContainer sx={{ width: "80%", marginLeft: "10%", height: "68.5vh" }} component={Paper}>
+            <TableContainer sx={{ width: "90%", marginLeft: "5%",height:"calc(100vh - 70px - 64px - 45px - 30px)"}} component={Paper}>
                 <Table aria-label="simple table" stickyHeader>
                     <TableHead >
                         <TableRow>
-                            <TableCell sx={{ minWidth: 40 }}>
+                            <TableCell sx={{ minWidth: 20 }}>
                                 {"Page Id"}
                             </TableCell>
-                            <TableCell sx={{ minWidth: 40 }}>Section Id</TableCell>
-                            <TableCell sx={{ minWidth: 40 }}>Element Id</TableCell>
+                            <TableCell sx={{ minWidth: 20 }}>Section Id</TableCell>
+                            <TableCell sx={{ minWidth: 20 }}>Element Id</TableCell>
                             <TableCell sx={{ minWidth: 200 }} align="left">Content</TableCell>
                             <TableCell sx={{ minWidth: 100 }} align="right">Update</TableCell>
                             <TableCell sx={{ minWidth: 100 }} align="right">Delete</TableCell>
