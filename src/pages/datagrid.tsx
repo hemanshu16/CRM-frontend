@@ -10,13 +10,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { deleteContent, fetchAllContent, newContent, updateContent } from "../actions/content";
 import { Content } from '../models/content';
-import { Dialog, DialogTitle, Button, DialogActions, DialogContent, TextField, Box, FormControl, OutlinedInput, InputLabel, Typography } from '@mui/material';
+import { Dialog, DialogTitle, Button, DialogActions, DialogContent, TextField, Box, FormControl, OutlinedInput, InputLabel, Typography, styled } from '@mui/material';
 import { APIResponseDeleteContent } from '../models/APIResponseDeleteContent';
 import { SnackbarContext } from '../hooks/SnackbarProvider';
 import { ContentId } from '../models/contentId';
 import { BackdropContext } from '../hooks/BackdropProvider';
 
-
+const StyledTableCell = styled(TableCell)`
+//   border: 1px solid #DDDDDD;
+`;
 
 export default function DataTable() {
 
@@ -269,38 +271,38 @@ export default function DataTable() {
             </Box>
 
 
-            <TableContainer sx={{ width: "90%", marginLeft: "5%",height:"calc(100vh - 70px - 64px - 45px - 30px)"}} component={Paper}>
+            <TableContainer sx={{ width: "90%", marginLeft: "5%",height:"calc(100vh - 70px - 64px - 45px - 30px)", borderRadius:"10px"}} component={Paper}>
                 <Table aria-label="simple table" stickyHeader>
                     <TableHead >
                         <TableRow>
-                            <TableCell sx={{ minWidth: 20 }}>
+                            <StyledTableCell sx={{ minWidth: 20 }}>
                                 {"Page Id"}
-                            </TableCell>
-                            <TableCell sx={{ minWidth: 20 }}>Section Id</TableCell>
-                            <TableCell sx={{ minWidth: 20 }}>Element Id</TableCell>
-                            <TableCell sx={{ minWidth: 200 }} align="left">Content</TableCell>
-                            <TableCell sx={{ minWidth: 100 }} align="right">Update</TableCell>
-                            <TableCell sx={{ minWidth: 100 }} align="right">Delete</TableCell>
+                            </StyledTableCell>
+                            <StyledTableCell sx={{ minWidth: 20 }}>Section Id</StyledTableCell>
+                            <StyledTableCell sx={{ minWidth: 20 }}>Element Id</StyledTableCell>
+                            <StyledTableCell sx={{ minWidth: 200 }} align="left">Content</StyledTableCell>
+                            <StyledTableCell sx={{ minWidth: 100 }} align="right">Update</StyledTableCell>
+                            <StyledTableCell sx={{ minWidth: 100 }} align="right">Delete</StyledTableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody sx={{borderRadius:"10px"}}>
                         {data.map((row) => (
                             <TableRow
                                 key={row.contentId}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">
+                                <StyledTableCell component="th" scope="row">
                                     {row.contentId.split("-")[0].substring(4)}
-                                </TableCell>
-                                <TableCell component="th" scope="row">
+                                </StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
                                     {row.contentId.split("-")[1].substring(3)}
-                                </TableCell>
-                                <TableCell component="th" scope="row">
+                                </StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
                                     {row.contentId.split("-")[2].substring(3)}
-                                </TableCell>
-                                <TableCell align="justify">{row.content}</TableCell>
-                                <TableCell align="right">{<EditIcon sx={{ cursor: 'pointer' }} onClick={() => initiateUpdate(row)} />}</TableCell>
-                                <TableCell align="right">{<DeleteIcon sx={{ cursor: 'pointer' }} onClick={() => handleClickOpen(row.contentId)} />}</TableCell>
+                                </StyledTableCell>
+                                <StyledTableCell align="justify">{row.content}</StyledTableCell>
+                                <StyledTableCell align="right">{<EditIcon sx={{ cursor: 'pointer' }} onClick={() => initiateUpdate(row)} />}</StyledTableCell>
+                                <StyledTableCell align="right">{<DeleteIcon sx={{ cursor: 'pointer' }} onClick={() => handleClickOpen(row.contentId)} />}</StyledTableCell>
                             </TableRow>
                         ))}
                     </TableBody>
