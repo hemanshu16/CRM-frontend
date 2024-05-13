@@ -264,7 +264,7 @@ export default function DataTable() {
                 </Button>
             </DialogActions>
         </Dialog>
-        <Box sx={{ width: "100%", mt:"80px", position:"sticky",flexGrow:1 }}>
+        <Box sx={{ width: "100%", mt:"75px", position:"sticky",flexGrow:1 }}>
             <Box width="90%" sx={{ ml: "5%", display: "flex", justifyContent: "space-between", alignItems: "center" }} >
                 <Typography></Typography>
                 <Button sx={{ mb: 1, color: "#151e28", borderColor: "#151e28" }} onClick={() => { setOpen("new"); setDialogTitle("New Content"); }} variant='outlined'>+ Add</Button>

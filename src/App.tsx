@@ -41,7 +41,7 @@ function App() {
       </Snackbar>
          <Box sx={{display:"flex"}}>
        
-          <AppBar position="fixed" sx={{ top:0,backgroundColor: "#151e28" }}>
+          <AppBar position="fixed" sx={{ top:0,backgroundColor: "#002244" }}>
             <Toolbar>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 CRM Dashboard
@@ -54,10 +54,10 @@ function App() {
 
         <Box sx={{ textAlign: "center", backgroundColor: "InfoBackground", position:"fixed",bottom:"0",width:"100%" }}>
           <Divider />
-          <Box sx={{p:1, backgroundColor: "#151e28", color: "whitesmoke" }}>
+          <Box sx={{p:1, backgroundColor: "#002244", color: "whitesmoke" }}>
             <Typography variant='body2' sx={{ color: "whitesmoke" }}>© 2024 Barabari Collective Developers.</Typography>
-            <Typography variant='body2'>Built By <Link sx={{ color: 'white' }} href="https://github.com/hemanshu16">Hemanshu Faldu.</Link></Typography>
-            <Typography variant='body2'>Want us to build something for you? <Link sx={{ color: 'white' }} href="https://www.barabariproject.org/">Contact us</Link></Typography>
+            <Typography variant='body2'>Built By <Link sx={{ color: 'white',textDecoration:"underline",textDecorationColor:"yellow" }} href="https://github.com/hemanshu16">Hemanshu Faldu.</Link></Typography>
+            <Typography variant='body2'>Want us to build something for you? <Link sx={{ color: 'white',textDecoration:"underline",textDecorationColor:"yellow" }} href="https://www.barabariproject.org/">Contact us</Link></Typography>
           </Box>
         </Box>
         </Box>
